@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Artify</title>
+    <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>ARTIFY</h1>
+        <p style="font-family: 'Times New Roman', Times, serif;">A Neural Style Transfer App 
+        </p>
+        <p style="text-align: justify;">
+            Welcome to Artify, a neural style transfer app. You can choose one of the following 8 art styles and transfer 
+            the style to your own image. Simply upload your image, choose a style, and have fun!
+        </p>
+        <div class="two-column-container">
+            <div>
+                <table>
+                    <tr>
+                        <td>Candy</td>
+                        <td><img src="{{ url_for('static', filename='art-styles/candy.jpg') }}" alt="Candy" style="height: 100px; width: 100px;"></td>
+                    </tr>
+                    <tr>
+                        <td>La Muse</td>
+                        <td><img src="{{ url_for('static', filename='art-styles/la-muse.jpg') }}" alt="La Muse" style="height: 100px; width: 100px;"></td>
+                    </tr>
+                </table>
+            </div>
+            <div>
+                <table>
+                    <tr>
+                        <td>Starry Night</td>
+                        <td><img src="{{ url_for('static', filename='art-styles/starry-night.jpg') }}" alt="Starry Night" style="height: 100px; width: 100px;"></td>
+                    </tr>
+                    <tr>
+                        <td>The Wave</td>
+                        <td><img src="{{ url_for('static', filename='art-styles/the-wave.jpg') }}" alt="The Wave" style="height: 100px; width: 100px;"></td>
+                    </tr>
+                </table>
+            </div>
+            <div>
+                <table>
+                    <tr>
+                        <td>Feathers</td>
+                        <td><img src="{{ url_for('static', filename='art-styles/feathers.jpg') }}" alt="Feathers" style="height: 100px; width: 100px;"></td>
+                    </tr>
+                    <tr>
+                        <td>The Scream</td>
+                        <td><img src="{{ url_for('static', filename='art-styles/the-scream.jpg') }}" alt="The Scream" style="height: 100px; width: 100px;"></td>
+                    </tr>
+                </table>
+            </div>
+            <div>
+                <table>
+                    <tr>
+                        <td>Mosaic</td>
+                        <td><img src="{{ url_for('static', filename='art-styles/mosaic.jpg') }}" alt="Mosaic" style="height: 100px; width: 100px;"></td>
+                    </tr>
+                    <tr>
+                        <td>Udnie</td>
+                        <td><img src="{{ url_for('static', filename='art-styles/udnie.jpg') }}" alt="Udnie" style="height: 100px; width: 100px;"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div style="margin-top: 40px;"></div>
+        <form method="post" enctype="multipart/form-data">
+            <label for="style">Upload your image. Supported file types include 'jpg', 'jpeg'.</label>
+            <input type="file" name="file" accept="image/*" required>
+            <label for="style">Choose an art style:</label>
+            <select name="style" id="style" required>
+                <option value="candy">Candy</option>
+                <option value="la-muse">La Muse</option>
+                <option value="starry-night">Starry Night</option>
+                <option value="the-wave">The Wave</option>
+                <option value="feathers">Feathers</option>
+                <option value="mosaic">Mosaic</option>
+                <option value="the-scream">The Scream</option>
+                <option value="udnie">Udnie</option>
+            </select>
+            <button type="submit">Generate</button>
+            <div style="margin-top: 40px;"></div>
+        </form>
+        {% if uploaded_file %}
+        <div class="two-column-container">
+            <div>
+                <p>Uploaded Image:</p>
+                <img src="data:image/jpeg;base64,{{ input_img }}" alt="Uploaded Image" style="max-width: 250px; max-height: 250px; width: auto; height: auto; object-fit: cover; border-radius: 8px;">
+            </div>
+            <div>
+                <p>Style: {{ style }}</p>
+                <img src="{{ url_for('static', filename='art-styles/' + style + '.jpg') }}" alt="Style" style="max-width: 250px; max-height: 250px; width: auto; height: auto; object-fit: cover; border-radius: 8px;">
+            </div>
+        </div>
+        <div style="margin-top: 40px;"></div>
+        <p>Generated Image:</p>
+        <p>
+            <div>
+                <img src="data:image/jpeg;base64,{{ output_img }}" alt="Styled Image" style="max-width: 400px; max-height: 400px; width: auto; height: auto; object-fit: cover; border-radius: 8px;">
+            </div>
+        </p>
+        {% endif %}
+    </div>
+</body>
+</html>
